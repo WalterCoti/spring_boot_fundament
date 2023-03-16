@@ -1,5 +1,9 @@
 package com.practicaSpringBoot.demo.component;
 
+
+import org.springframework.stereotype.Component;
+
+@Component
 public class ComponentImplement implements ComponentDependency{
     @Override
     public void saludar(){
