@@ -42,6 +42,6 @@ public class DemoApplication  implements CommandLineRunner {
 	 mybean.print();
 	 mybeanwithDependency.printmyDependency();
 		System.out.println(myBeanwithProperties.function());
-		System.out.printf(userPojo.getEmail());
+		System.out.printf(userPojo.toString());
 	}
 }

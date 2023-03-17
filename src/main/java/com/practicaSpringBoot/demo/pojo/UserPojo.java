@@ -1,43 +1,17 @@
 package com.practicaSpringBoot.demo.pojo;
 
+import lombok.*;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.ConstructorBinding;
-import org.springframework.context.annotation.Configuration;
-@ConstructorBinding
+
 @ConfigurationProperties(prefix = "user")
+@Data       //lo
+@Getter
+@Setter
+@AllArgsConstructor
+@ToString
 public class UserPojo {
     private String email;
     private String password;
     private int edad;
 
-
-    public UserPojo(String email_, String password_, int edad_){
-        this.email = email_;
-        this.password = password_;
-        this.edad = edad_;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public int getEdad() {
-        return edad;
-    }
-
-    public void setEdad(int edad) {
-        this.edad = edad;
-    }
 }
