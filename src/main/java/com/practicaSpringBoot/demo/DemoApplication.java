@@ -6,6 +6,8 @@ import com.practicaSpringBoot.demo.bean.MybeanPropertiesImplement;
 import com.practicaSpringBoot.demo.bean.newbean;
 import com.practicaSpringBoot.demo.component.ComponentDependency;
 import com.practicaSpringBoot.demo.pojo.UserPojo;
+import org.apache.juli.logging.Log;
+import org.apache.juli.logging.LogFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,6 +15,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 
 public class DemoApplication  implements CommandLineRunner {
+
+	private final Log LOGGER = LogFactory.getLog(DemoApplication.class);
 
 	private ComponentDependency componentDependency;
 	private newbean mybean;
@@ -42,6 +46,13 @@ public class DemoApplication  implements CommandLineRunner {
 	 mybean.print();
 	 mybeanwithDependency.printmyDependency();
 		System.out.println(myBeanwithProperties.function());
-		System.out.printf(userPojo.toString());
+		System.out.println(userPojo.toString());
+		try{
+			int value = 10/0;
+			LOGGER.debug("Mi valor : " + value);
+		}catch (Exception e){
+
+		LOGGER.error("esto es un error del aplicativo " + e.getMessage());
+		}
 	}
 }
