@@ -7,6 +7,7 @@ import com.practicaSpringBoot.demo.bean.newbean;
 import com.practicaSpringBoot.demo.component.ComponentDependency;
 import com.practicaSpringBoot.demo.entity.User;
 import com.practicaSpringBoot.demo.pojo.UserPojo;
+import com.practicaSpringBoot.demo.repository.UserRepository;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -14,6 +15,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 
 @SpringBootApplication
 
@@ -26,15 +29,16 @@ public class DemoApplication  implements CommandLineRunner {
 	private MybeanDependency mybeanwithDependency;
 	private MyBeanwithProperties myBeanwithProperties;
 	private UserPojo userPojo;
+	private UserRepository	userRepository;
 
 
-
-	public DemoApplication(ComponentDependency componentDependency_, newbean mybean_, MybeanDependency mybeanDependency_, MyBeanwithProperties myBeanwithProperties, UserPojo userPojo_){
+	public DemoApplication(ComponentDependency componentDependency_, newbean mybean_, MybeanDependency mybeanDependency_, MyBeanwithProperties myBeanwithProperties, UserPojo userPojo_, UserRepository userRepository_) {
 		this.mybeanwithDependency = mybeanDependency_;
 		this.componentDependency = componentDependency_;
 		this.mybean = mybean_;
 		this.myBeanwithProperties = myBeanwithProperties;
 		this.userPojo = userPojo_;
+		this.userRepository = userRepository_;
 	}
 
 
@@ -45,23 +49,24 @@ public class DemoApplication  implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		ejemplosanteriores();
-
+		savUserInDataBase();
+		//ejemplosanteriores();
 	}
 
 	private void savUserInDataBase(){
-		User user1 = new User("Jonh","holamundo@gmail.com", LocalDate.of(2023,03,27));
-		User user2 = new User("Antuan","Antuan@gmail.com", LocalDate.of(2023,04,27));
-		User user3 = new User("Miguel","Miguel@gmail.com", LocalDate.of(2023,04,27));
-		User user4 = new User("Jose","Jose@gmail.com", LocalDate.of(2023,04,27));
+		User user1 = new User("Jonh","Jonh@gmail.com", LocalDate.of(2023,03,27));
+		User user2 = new User("Antuan","Antuan@gmail.com", LocalDate.of(2023,04,11));
+		User user3 = new User("Miguel","Miguel@gmail.com", LocalDate.of(2023,04,22));
+		User user4 = new User("Jose","Jose@gmail.com", LocalDate.of(2023,04,9));
 		User user5 = new User("Mary","Mary@gmail.com", LocalDate.of(2023,04,27));
-		User user6 = new User("Letycia","Letycia@gmail.com", LocalDate.of(2023,04,27));
-		User user7 = new User("Romio","Romio@gmail.com", LocalDate.of(2023,04,27));
+		User user6 = new User("Letycia","Letycia@gmail.com", LocalDate.of(2023,04,25));
+		User user7 = new User("Romio","Romio@gmail.com", LocalDate.of(2023,04,07));
 		User user8 = new User("Manuela","Manuela@gmail.com", LocalDate.of(2023,04,27));
-		User user9 = new User("Fernanda","Fernanda@gmail.com", LocalDate.of(2023,04,27));
-		User user10 = new User("Estefany","Estefany@gmail.com", LocalDate.of(2023,04,27));
-
-
+		User user9 = new User("Fernanda","Fernanda@gmail.com", LocalDate.of(2023,04,6));
+		User user10 = new User("Estefany","Estefany@gmail.com", LocalDate.of(2023,04,9));
+		User user11 = new User("Luis","luis@gmail.com", LocalDate.of(2023,04,8));
+		List<User> list = Arrays.asList(user1,user2,user3,user4,user5,user6,user7,user8,user9,user10,user11);
+		list.stream().forEach(userRepository::save);
 	}
 
 	public void ejemplosanteriores(){

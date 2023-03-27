@@ -37,6 +37,7 @@ public class Generalconfiguaration {
         dataSourceBuilder.url("jdbc:h2:mem:testdb");
         dataSourceBuilder.username("SA");
         dataSourceBuilder.password("");
+
         return dataSourceBuilder.build();
     }
 
