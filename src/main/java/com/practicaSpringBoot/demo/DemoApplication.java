@@ -18,6 +18,7 @@ import org.springframework.data.domain.Sort;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootApplication
 
@@ -62,6 +63,11 @@ public class DemoApplication  implements CommandLineRunner {
 		userRepository.findAndSort("J", Sort.by("id").descending())
 				.stream()
 				.forEach(usr -> LOGGER.info("Usuario con el metodo findAndSort: " + usr));
+		userRepository.findByName("Antuan")
+				.stream()
+				.forEach(usr -> LOGGER.info("Usuario con el metodo findByName: " + usr));
+		LOGGER.info("Usuario con query method findByEmailName" + userRepository.findByEmailAndName("Manuela@gmail.com","Manuela")
+				.orElseThrow(() -> new RuntimeException("No existe el usuario con el email y nombre indicado")));
 	}
 
 	private void savUserInDataBase(){
