@@ -68,7 +68,18 @@ public class DemoApplication  implements CommandLineRunner {
 				.forEach(usr -> LOGGER.info("Usuario con el metodo findByName: " + usr));
 		LOGGER.info("Usuario con query method findByEmailName" + userRepository.findByEmailAndName("Manuela@gmail.com","Manuela")
 				.orElseThrow(() -> new RuntimeException("No existe el usuario con el email y nombre indicado")));
+		//
+		userRepository.findByNameLike("%o%").stream().forEach(usr -> LOGGER.info("Usuario con el metodo findByNameLike: " + usr));
+		// OR
+		userRepository.findByNameOrEmail("Antuan","Estefany@gmail.com").stream().forEach(usr -> LOGGER.info("Usuario con el metodo findByNameOrEmail: " + usr));
+
+		userRepository.findByBirthdayBetween(LocalDate.of(2023,04,25),LocalDate.of(2023,04,27))
+				.stream().forEach(usr -> LOGGER.info("Usuario con el metodo findByBirthdayBetween: " + usr));
+		userRepository.findByNameLikeOrderByIdDesc("%l%").stream().forEach(usr -> LOGGER.info("Usuario con el metodo findByNameLikeOrderByIdDesc: " + usr));
+		userRepository.findByNameContaining("y").stream().forEach(usr -> LOGGER.info("Usuario con el metodo findByNameContainingOrderByIdDesc: " + usr));
+
 	}
+
 
 	private void savUserInDataBase(){
 		User user1 = new User("Jonh","Jonh@gmail.com", LocalDate.of(2023,03,27));
