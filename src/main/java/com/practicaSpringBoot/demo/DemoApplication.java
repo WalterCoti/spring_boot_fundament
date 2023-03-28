@@ -13,6 +13,7 @@ import org.apache.juli.logging.LogFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.domain.Sort;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -49,8 +50,18 @@ public class DemoApplication  implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		savUserInDataBase();
 		//ejemplosanteriores();
+		savUserInDataBase();
+		getInformationJpqlFromUser();
+	}
+
+	private void getInformationJpqlFromUser() {
+		User user = userRepository.findUseremail("Letycia@gmail.com")
+				.orElseThrow(()-> new RuntimeException("No existe el usuario con el email indicado" ));
+		LOGGER.info("Usuario con el metodo findUseremail: " + user);
+		userRepository.findAndSort("J", Sort.by("id").descending())
+				.stream()
+				.forEach(usr -> LOGGER.info("Usuario con el metodo findAndSort: " + usr));
 	}
 
 	private void savUserInDataBase(){
