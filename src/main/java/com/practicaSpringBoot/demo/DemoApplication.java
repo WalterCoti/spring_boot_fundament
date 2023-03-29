@@ -77,7 +77,8 @@ public class DemoApplication  implements CommandLineRunner {
 				.stream().forEach(usr -> LOGGER.info("Usuario con el metodo findByBirthdayBetween: " + usr));
 		userRepository.findByNameLikeOrderByIdDesc("%l%").stream().forEach(usr -> LOGGER.info("Usuario con el metodo findByNameLikeOrderByIdDesc: " + usr));
 		userRepository.findByNameContaining("y").stream().forEach(usr -> LOGGER.info("Usuario con el metodo findByNameContainingOrderByIdDesc: " + usr));
-
+		LOGGER.info( "El usuario a partir del named parameter es " + userRepository.getAllByBirthdayAAndEmail(LocalDate.of(2023,04,9),"Jose@gmail.com")
+				.orElseThrow(()-> new RuntimeException("No existe el usuario con el email y nombre indicado")));
 	}
 
 
