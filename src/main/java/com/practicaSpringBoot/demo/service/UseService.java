@@ -26,4 +26,27 @@ public class UseService {
     public List<User> getAllUsers(){
         return userRepository.findAll();
     }
+
+    public User save(User newUser) {
+        return userRepository.save(newUser);
+    }
+
+    public void remove(Long id) {
+        userRepository.delete(new User(id));
+
+    }
+
+    public User update(User newUser, Long id) {
+        return userRepository.findById(id)
+                .map(
+                        user -> {
+                                    user.setName(newUser.getName());
+                                    user.setBirthday(newUser.getBirthday());
+                                    user.setEmail(newUser.getEmail());
+                                    return userRepository.save(user);
+                        }
+                ).orElseThrow(
+                        () -> new RuntimeException("No se encontro el usuario"));
+
+    }
 }
