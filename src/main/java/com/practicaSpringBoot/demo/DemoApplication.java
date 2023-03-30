@@ -60,6 +60,7 @@ public class DemoApplication  implements CommandLineRunner {
 	}
 
 
+
 	private void saveWithErrorTransactional() {
 		User user1 = new User("Test1", "Test1email", LocalDate.now());
 		User user2 = new User("Test2", "Test2email", LocalDate.now());

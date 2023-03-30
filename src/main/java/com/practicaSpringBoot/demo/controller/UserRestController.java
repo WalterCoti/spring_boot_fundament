@@ -5,6 +5,10 @@ import com.practicaSpringBoot.demo.CaseUse.DeleteUser;
 import com.practicaSpringBoot.demo.CaseUse.GetUser;
 import com.practicaSpringBoot.demo.CaseUse.UpdateUser;
 import com.practicaSpringBoot.demo.entity.User;
+import com.practicaSpringBoot.demo.service.UseService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +38,13 @@ public class UserRestController {
     List<User> get(){
         return getUser.getAll();
     }
+    @GetMapping("/lista")
+    public Page<User> getAlls(@PageableDefault(size = 10, page = 0) Pageable pageable){
+        Page<User> list = getUser.findAll();
+        return list;
+    }
+
+
     @PostMapping("/")
     ResponseEntity<User> newUser(@RequestBody User newUser){
         return new ResponseEntity<>(createUser.save(newUser), HttpStatus.CREATED);
