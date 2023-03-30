@@ -8,6 +8,7 @@ import com.practicaSpringBoot.demo.component.ComponentDependency;
 import com.practicaSpringBoot.demo.entity.User;
 import com.practicaSpringBoot.demo.pojo.UserPojo;
 import com.practicaSpringBoot.demo.repository.UserRepository;
+import com.practicaSpringBoot.demo.service.UseService;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -32,15 +33,16 @@ public class DemoApplication  implements CommandLineRunner {
 	private MyBeanwithProperties myBeanwithProperties;
 	private UserPojo userPojo;
 	private UserRepository	userRepository;
+	private UseService useService;
 
-
-	public DemoApplication(ComponentDependency componentDependency_, newbean mybean_, MybeanDependency mybeanDependency_, MyBeanwithProperties myBeanwithProperties, UserPojo userPojo_, UserRepository userRepository_) {
+	public DemoApplication(ComponentDependency componentDependency_, newbean mybean_, MybeanDependency mybeanDependency_, MyBeanwithProperties myBeanwithProperties, UserPojo userPojo_, UserRepository userRepository_, UseService useService_){
 		this.mybeanwithDependency = mybeanDependency_;
 		this.componentDependency = componentDependency_;
 		this.mybean = mybean_;
 		this.myBeanwithProperties = myBeanwithProperties;
 		this.userPojo = userPojo_;
 		this.userRepository = userRepository_;
+		this.useService = useService_;
 	}
 
 
@@ -54,8 +56,19 @@ public class DemoApplication  implements CommandLineRunner {
 		//ejemplosanteriores();
 		savUserInDataBase();
 		getInformationJpqlFromUser();
+		saveWithErrorTransactional();
 	}
 
+
+	private void saveWithErrorTransactional() {
+		User user1 = new User("Test1", "Test1email", LocalDate.now());
+		User user2 = new User("Test2", "Test2email", LocalDate.now());
+		User user3 = new User("Test3", "Test3email", LocalDate.now());
+		User user4 = new User("Test4", "Test4email", LocalDate.now());
+		List<User> users = Arrays.asList(user1, user2, user3, user4);
+		useService.saveTransactional(users);
+		useService.getAllUsers().stream().forEach(user -> LOGGER.info("Este es el usuario dentro del metodo transaccional: " + user));
+	}
 	private void getInformationJpqlFromUser() {
 		User user = userRepository.findUseremail("Letycia@gmail.com")
 				.orElseThrow(()-> new RuntimeException("No existe el usuario con el email indicado" ));
