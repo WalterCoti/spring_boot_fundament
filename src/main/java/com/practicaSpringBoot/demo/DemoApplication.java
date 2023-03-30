@@ -63,10 +63,15 @@ public class DemoApplication  implements CommandLineRunner {
 	private void saveWithErrorTransactional() {
 		User user1 = new User("Test1", "Test1email", LocalDate.now());
 		User user2 = new User("Test2", "Test2email", LocalDate.now());
-		User user3 = new User("Test3", "Test3email", LocalDate.now());
+		User user3 = new User("Test3", "Test1email", LocalDate.now());
 		User user4 = new User("Test4", "Test4email", LocalDate.now());
+
 		List<User> users = Arrays.asList(user1, user2, user3, user4);
-		useService.saveTransactional(users);
+		try {
+			useService.saveTransactional(users);
+		}catch (Exception e){
+			LOGGER.error("Esta es la excepcion dentro del metodo transaccional: " + e);
+		}
 		useService.getAllUsers().stream().forEach(user -> LOGGER.info("Este es el usuario dentro del metodo transaccional: " + user));
 	}
 	private void getInformationJpqlFromUser() {
