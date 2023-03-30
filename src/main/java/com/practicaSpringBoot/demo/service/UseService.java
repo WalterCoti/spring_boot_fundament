@@ -45,8 +45,6 @@ public class UseService {
                                     user.setEmail(newUser.getEmail());
                                     return userRepository.save(user);
                         }
-                ).orElseThrow(
-                        () -> new RuntimeException("No se encontro el usuario"));
-
+                ).get();
     }
 }

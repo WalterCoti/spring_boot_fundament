@@ -1,5 +1,6 @@
 package com.practicaSpringBoot.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -22,7 +23,7 @@ public class User {
     private LocalDate birthday;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonManagedReference
+    @JsonBackReference   //Con JsonManageReference no funcionaba el POST ni PUT
     private List<Post> posts = new ArrayList<>();
 
     public User(){
